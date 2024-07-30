@@ -1,0 +1,18 @@
+<h2>Expense Detail: {{ expense.description }}</h2>
+<p>Total Amount: {{ expense.total_amount }}</p>
+<p>Split Method: {{ expense.get_split_method_display }}</p>
+
+<h3>Add Split</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+
+<h3>Splits</h3>
+<ul>
+    {% for split in expense.expensesplit_set.all %}
+        <li>{{ split.user.name }}: {{ split.amount }} ({{ split.percentage }}%)</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'user_list' %}">Back to User List</a>
